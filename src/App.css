@@ -12,6 +12,16 @@ h1 {
   color: #333;
 }
 
+.notification {
+  background: #ffe066;
+  color: #333;
+  padding: 0.7rem 1.2rem;
+  border-radius: 0.4rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
 .row {
   text-align: center;
   display: flex;
@@ -81,17 +91,24 @@ h1 {
 }
 
 .key {
-  width: 2.2rem;
-  height: 2.2rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
   margin: 0 0.15rem;
   border-radius: 0.3rem;
   background: #eee;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   text-transform: uppercase;
   border: 1px solid #ccc;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.key.special {
+  background: #ddd;
+  color: #333;
 }
 
 .row-offset-1 {
@@ -139,7 +156,7 @@ h1 {
 .modal .solution {
   color: #ff004c;
   font-weight: bold;
-  font-size: 0.8em;
+  font-size: 1.4em;
   text-transform: uppercase;
   letter-spacing: 1px;
 }

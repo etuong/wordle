@@ -6,6 +6,7 @@ const useWordle = (solution) => {
   const [guesses, setGuesses] = useState([...Array(6)])
   const [history, setHistory] = useState([])
   const [isCorrect, setIsCorrect] = useState(false)
+  const [notification, setNotification] = useState('')
   const [usedKeys, setUsedKeys] = useState({}) // {a: 'grey', b: 'green', c: 'yellow'} etc
 
   const formatGuess = () => {
@@ -72,26 +73,34 @@ const useWordle = (solution) => {
 
       return prevUsedKeys
     })
+
     setCurrentGuess('')
   }
 
-  const handleKeyup = ({ key }) => {
+  const handleKeyup = async ({ key }) => {
     if (key === 'Enter') {
       if (turn > 5) {
-        console.log('you used all your guesses!')
+        setNotification('You used all your guesses!')
         return
       }
 
       if (history.includes(currentGuess)) {
-        console.log('you already tried that word.')
+        setNotification('You already tried this word!')
         return
       }
 
       if (currentGuess.length !== 5) {
-        console.log('word must be 5 chars.')
+        setNotification('Word must be 5 characters!')
         return
       }
 
+      const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${currentGuess}`);
+      if (!res.ok) {
+        setNotification('This is not a real word!')
+        return
+      }
+
+      setNotification('')
       const formatted = formatGuess()
       addNewGuess(formatted)
     }
@@ -108,7 +117,7 @@ const useWordle = (solution) => {
     }
   }
 
-  return { turn, currentGuess, guesses, isCorrect, usedKeys, handleKeyup }
+  return { turn, currentGuess, guesses, isCorrect, usedKeys, handleKeyup, notification }
 }
 
 export default useWordle
