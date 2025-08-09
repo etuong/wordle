@@ -22,7 +22,7 @@ function App() {
   }, [handleKeyup, isCorrect, turn])
 
   useEffect(() => {
-    fetch('https://api.frontendexpert.io/api/fe/wordle-words')
+    fetch('https://corsproxy.io/?https://api.frontendexpert.io/api/fe/wordle-words')
       .then(res => res.json())
       .then(json => {
         const randomSolution = json[Math.floor(Math.random() * json.length)]
